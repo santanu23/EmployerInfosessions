@@ -10,16 +10,12 @@
 <script>
 
 	$(document).ready(function() {
-		$.get( "https://api.uwaterloo.ca/v2/events.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
+		$.get( "https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
 
     var infosessions = [];
     $(data.data).each(function(index, event){
-      if(event.type[0] == "Information session")
-      {
-        infosessions.push({title: event.title.replace(" Employer Information Session", "") , start: moment(event.times[0].start) , end: moment(event.times[0].end)});
-
-      }
-    })
+        infosessions.push({title: event.employer , start: moment(event.date + " " + event.start_time) , end: moment(event.date + " " + event.end_time)});
+		})
     if (infosessions.length > 0){
 			$('#calendar').fullCalendar({
 				events: infosessions
