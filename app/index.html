@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='../fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script>
+
+	$(document).ready(function() {
+		$.get( "https://api.uwaterloo.ca/v2/events.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
+
+    var infosessions = [];
+    $(data.data).each(function(index, event){
+      if(event.type[0] == "Information session")
+      {
+        infosessions.push({title: event.title.replace(" Employer Information Session", "") , start: moment(event.times[0].start) , end: moment(event.times[0].end)});
+        
+      }
+    })
+    if (infosessions.length > 0){
+			$('#calendar').fullCalendar({
+				events: infosessions
+			});
+    }
+  })
+
+
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+</head>
+<body>
+
+	<div id='calendar'></div>
+
+</body>
+</html>
