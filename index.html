@@ -4,28 +4,40 @@
 	<meta charset='utf-8' />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="dx.common.css" />
+	<link rel="stylesheet" type="text/css" href="dx.light.css" />
 	<script src='lib/jquery.min.js'></script>
 	<script src='lib/moment.min.js'></script>
+	<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/globalize/0.1.1/globalize.min.js"></script>
+	<script type="text/javascript" src="http://cdn3.devexpress.com/jslib/15.2.9/js/dx.all.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 	<script>
 
 		$(document).ready(function() {
+			$('.viewAll').click(function(){
+				$('.foodContainer').css("display","none");
+				$('.viewAll').css("display","none");
+				$('.scheduler').css("display","block");
+			})
+			$('.foodContainer').css("display","none");
+			$('.viewAll').css("display","none");
+      $('.scheduler').css("display","none");
 			$.get( "https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
 
 	    var infosessions = [];
 			console.log(data);
 	    $(data.data).each(function(index, event){
-			 //	if(event.date == moment().format("YYYY-MM-DD")) infosessions.push(event); //prod
-				if(event.date == "2016-05-09") infosessions.push(event); //test
+			 	if(event.date == moment().format("YYYY-MM-DD")) infosessions.push(event); //prod
+				// if(event.date == "2016-05-09") infosessions.push(event); //test
 			})
 			console.log(infosessions);
-			if(infosessions.length > 0){
-				//var breakfast = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 11:00")), moment(moment().format("YYYY-MM-DD" + " 12:59")));
-				//var lunch = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 13:00")), moment(moment().format("YYYY-MM-DD" + " 15:59")));
-				//var dinner = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 17:00")), moment(moment().format("YYYY-MM-DD" + " 20:59")));
-				var breakfast = getSessions(infosessions, moment("2016-05-09 11:00"), moment("2016-05-09" + " 12:59"));
-				var lunch = getSessions(infosessions, moment("2016-05-09" + " 13:00"), moment("2016-05-09" + " 15:59"));
-				var dinner = getSessions(infosessions, moment("2016-05-09" + " 17:00"), moment("2016-05-09" + " 20:59"));
+
+				var breakfast = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 11:00")), moment(moment().format("YYYY-MM-DD" + " 12:59")));
+				var lunch = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 13:00")), moment(moment().format("YYYY-MM-DD" + " 15:59")));
+				var dinner = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 17:00")), moment(moment().format("YYYY-MM-DD" + " 20:59")));
+				// var breakfast = getSessions(infosessions, moment("2016-05-09 11:00"), moment("2016-05-09" + " 12:59"));
+				// var lunch = getSessions(infosessions, moment("2016-05-09" + " 13:00"), moment("2016-05-09" + " 15:59"));
+				// var dinner = getSessions(infosessions, moment("2016-05-09" + " 17:00"), moment("2016-05-09" + " 20:59"));
 
 				if(breakfast != null){
 				  $('.breakfast > > > .employer').html(breakfast.employer);
@@ -34,7 +46,7 @@
 					$('.breakfast > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + breakfast.link.substring(breakfast.link.length - 4, breakfast.link.length) + "&mode=on" );
 				} else {
 					$('.breakfast > > > .employer').html("Not available");
-					$('.breakfast > > .card-action').css("display","none")
+					$('.breakfast > > .card-action').css("display","none");
 				}
 
 				if(lunch != null){
@@ -44,7 +56,7 @@
 					$('.lunch > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + lunch.link.substring(lunch.link.length - 4, lunch.link.length) + "&mode=on" );
 				} else {
 					$('.lunch > > > .employer').html("Not available");
-          $('.lunch > > .card-action').css("display","none")
+          $('.lunch > > .card-action').css("display","none");
 				}
 
 				if(dinner != null){
@@ -54,10 +66,136 @@
 					$('.dinner > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + dinner.link.substring(dinner.link.length - 4, dinner.link.length) + "&mode=on" );
 				} else {
 					$('.dinner > > > .employer').html("Not available");
-					$('.dinner > > .card-action').css("display","none")
+					$('.dinner > > .card-action').css("display","none");
 				}
-			}
+				$('.foodContainer').css("display","block");
+				$('.viewAll').css("display","inline-block");
 
+
+
+						var data = [
+		    {
+		        text: "Website Re-Design Plan",
+		        ownerId: [4],
+		        startDate: new Date(2015, 4, 25, 9, 30),
+		        endDate: new Date(2015, 4, 25, 11, 30)
+		    }, {
+		        text: "Book Flights to San Fran for Sales Trip",
+		        ownerId: [2],
+		        startDate: new Date(2015, 4, 25, 12, 0),
+		        endDate: new Date(2015, 4, 25, 13, 0)
+		    }, {
+		        text: "Install New Router in Dev Room",
+		        ownerId: [1],
+		        startDate: new Date(2015, 4, 25, 14, 30),
+		        endDate: new Date(2015, 4, 25, 15, 30)
+		    }, {
+		        text: "Approve Personal Computer Upgrade Plan",
+		        ownerId: [3],
+		        startDate: new Date(2015, 4, 26, 10, 0),
+		        endDate: new Date(2015, 4, 26, 11, 0)
+		    }, {
+		        text: "Final Budget Review",
+		        ownerId: [1],
+		        startDate: new Date(2015, 4, 26, 12, 0),
+		        endDate: new Date(2015, 4, 26, 13, 35)
+		    }, {
+		        text: "New Brochures",
+		        ownerId: [4],
+		        startDate: new Date(2015, 4, 26, 14, 30),
+		        endDate: new Date(2015, 4, 26, 15, 45)
+		    }, {
+		        text: "Install New Database",
+		        ownerId: [2],
+		        startDate: new Date(2015, 4, 27, 9, 45),
+		        endDate: new Date(2015, 4, 27, 11, 15)
+		    }, {
+		        text: "Approve New Online Marketing Strategy",
+		        ownerId: [3, 4],
+		        startDate: new Date(2015, 4, 27, 12, 0),
+		        endDate: new Date(2015, 4, 27, 14, 0)
+		    }, {
+		        text: "Upgrade Personal Computers",
+		        ownerId: [2],
+		        startDate: new Date(2015, 4, 27, 15, 15),
+		        endDate: new Date(2015, 4, 27, 16, 30)
+		    }, {
+		        text: "Prepare 2015 Marketing Plan",
+		        ownerId: [1, 3],
+		        startDate: new Date(2015, 4, 28, 11, 0),
+		        endDate: new Date(2015, 4, 28, 13, 30)
+		    }, {
+		        text: "Brochure Design Review",
+		        ownerId: [4],
+		        startDate: new Date(2015, 4, 28, 14, 0),
+		        endDate: new Date(2015, 4, 28, 15, 30)
+		    }, {
+		        text: "Create Icons for Website",
+		        ownerId: [3],
+		        startDate: new Date(2015, 4, 29, 10, 0),
+		        endDate: new Date(2015, 4, 29, 11, 30)
+		    }, {
+		        text: "Upgrade Server Hardware",
+		        ownerId: [4],
+		        startDate: new Date(2015, 4, 29, 14, 30),
+		        endDate: new Date(2015, 4, 29, 16, 0)
+		    }, {
+		        text: "Submit New Website Design",
+		        ownerId: [1],
+		        startDate: new Date(2015, 4, 29, 16, 30),
+		        endDate: new Date(2015, 4, 29, 18, 0)
+		    }, {
+		        text: "Launch New Website",
+		        ownerId: [2],
+		        startDate: new Date(2015, 4, 29, 12, 20),
+		        endDate: new Date(2015, 4, 29, 14, 0)
+		    }, {
+		        text: "Stand-up meeting",
+		        ownerId: [1, 2, 3, 4],
+		        startDate: new Date(2015, 4, 25, 9, 0),
+		        endDate: new Date(2015, 4, 25, 9, 15),
+		        recurrenceRule: "FREQ=DAILY;BYDAY=MO,TU,WE,TH,FR;UNTIL=20150530"
+		    }
+		];
+
+		var resourcesData = [
+		    {
+		        text: "Samantha Bright",
+		        id: 1,
+		        color: "#cb6bb2"
+		    }, {
+		        text: "John Heart",
+		        id: 2,
+		        color: "#56ca85"
+		    }, {
+		        text: "Todd Hoffman",
+		        id: 3,
+		        color: "#1e90ff"
+		    }, {
+		        text: "Sandra Johnson",
+		        id: 4,
+		        color: "#ff9747"
+		    }
+		];
+
+				var scheduler = $(".scheduler").dxScheduler({
+		    dataSource: data,
+		    views: ["month", "week", "workWeek", "day"],
+		    currentView: "workWeek",
+		    currentDate: new Date(2015, 4, 25),
+		    useDropDownViewSwitcher: false,
+		    firstDayOfWeek: 0,
+		    startDayHour: 8,
+		    endDayHour: 19,
+		    resources: [{
+		        field: "ownerId",
+		        allowMultiple: true,
+		        dataSource: resourcesData,
+		        label: "Owner"
+		    }],
+		    width: "100%",
+		    height: 600
+		}).dxScheduler("instance");
 	  })
 
 		});
@@ -131,9 +269,10 @@
       </div>
 <div class="row container">
 	<center>
-	  <a class="waves-effect waves-light btn btn-large">View all</a>
+	  <a class="waves-effect waves-light btn btn-large viewAll">View all</a>
   </center>
 </div>
+<div class="scheduler container"></div>
 <div>
 </body>
 </html>
