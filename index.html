@@ -1,51 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
-<link href='fullcalendar.css' rel='stylesheet' />
-<link href='fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='lib/moment.min.js'></script>
-<script src='lib/jquery.min.js'></script>
-<script src='fullcalendar.min.js'></script>
-<script>
+	<meta charset='utf-8' />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+	<script src='lib/jquery.min.js'></script>
+	<script src='lib/moment.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script>
 
-	$(document).ready(function() {
-		$.get( "https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
+		$(document).ready(function() {
+			$.get( "https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
 
-    var infosessions = [];
-    $(data.data).each(function(index, event){
-        infosessions.push({title: event.employer , start: moment(event.date + " " + event.start_time) , end: moment(event.date + " " + event.end_time)});
-		})
-    if (infosessions.length > 0){
-			$('#calendar').fullCalendar({
-				events: infosessions
-			});
-    }
-  })
+	    var infosessions = [];
+			console.log(data);
+	    $(data.data).each(function(index, event){
+			 //	if(event.date == moment().format("YYYY-MM-DD")) infosessions.push(event); //prod
+				if(event.date == "2016-05-09") infosessions.push(event); //test
+			})
+			console.log(infosessions);
+			if(infosessions.length > 0){
+				//var breakfast = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 11:00")), moment(moment().format("YYYY-MM-DD" + " 12:59")));
+				//var lunch = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 13:00")), moment(moment().format("YYYY-MM-DD" + " 15:59")));
+				//var dinner = getSessions(infosessions, moment(moment().format("YYYY-MM-DD" + " 17:00")), moment(moment().format("YYYY-MM-DD" + " 20:59")));
+				var breakfast = getSessions(infosessions, moment("2016-05-09 11:00"), moment("2016-05-09" + " 12:59"));
+				var lunch = getSessions(infosessions, moment("2016-05-09" + " 13:00"), moment("2016-05-09" + " 15:59"));
+				var dinner = getSessions(infosessions, moment("2016-05-09" + " 17:00"), moment("2016-05-09" + " 20:59"));
 
+				if(breakfast != null){
+				  $('.breakfast > > > .employer').html(breakfast.employer);
+					$('.breakfast > > > .Location').html("<a href=\""+ breakfast.building.map_url + "\"><i class=\"fa fa-map-marker \" aria-hidden=\"true\"></i>  " + breakfast.building.code + " " + breakfast.building.room + "</a>");
+					$('.breakfast > > > .time').html(breakfast.start_time + " - " + breakfast.end_time);
+					$('.breakfast > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + breakfast.link.substring(breakfast.link.length - 4, breakfast.link.length) + "&mode=on" );
+				} else {
+					$('.breakfast > > > .employer').html("Not available");
+					$('.breakfast > > .card-action').css("display","none")
+				}
 
-	});
+				if(lunch != null){
+					$('.lunch > > > .employer').html(lunch.employer);
+					$('.lunch > > > .Location').html("<a href=\""+ lunch.building.map_url + "\"><i class=\"fa fa-map-marker \" aria-hidden=\"true\"></i>  " + lunch.building.code + " " + lunch.building.room + "</a>");
+					$('.lunch > > > .time').html(lunch.start_time + " - " + lunch.end_time);
+					$('.lunch > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + lunch.link.substring(lunch.link.length - 4, lunch.link.length) + "&mode=on" );
+				} else {
+					$('.lunch > > > .employer').html("Not available");
+          $('.lunch > > .card-action').css("display","none")
+				}
 
-</script>
-<style>
+				if(dinner != null){
+					$('.dinner > > > .employer').html(dinner.employer);
+					$('.dinner > > > .Location').html("<a href=\""+ dinner.building.map_url + "\"><i class=\"fa fa-map-marker \" aria-hidden=\"true\"></i>  " + dinner.building.code + " " + dinner.building.room + "</a>");
+					$('.dinner > > > .time').html(dinner.start_time + " - " + dinner.end_time);
+					$('.dinner > > > .register').attr( "href", "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=" + dinner.link.substring(dinner.link.length - 4, dinner.link.length) + "&mode=on" );
+				} else {
+					$('.dinner > > > .employer').html("Not available");
+					$('.dinner > > .card-action').css("display","none")
+				}
+			}
 
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
+	  })
 
-	#calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
+		});
 
-</style>
+		var getSessions = function(eventArray, start,end){
+			//takes eventArray, lower time bound for start, upper time bound for start
+			for(var i = 0; i < eventArray.length; i++){
+				//var start_time = moment(moment().format("YYYY-MM-DD" + event.start_time)); //prod
+				var start_time = moment("2016-05-09 " + eventArray[i].start_time); //test
+				if(start_time >= start && start_time <= end) {
+					return eventArray[i];
+				}
+			}
+		}
+	</script>
 </head>
 <body>
+<div class="row container">
+	<center><h4>Free Food From Infosessions<h4></center>
+</div>
 
-	<div id='calendar'></div>
-
+	<div class="row container foodContainer">
+        <div class="col s4 container breakfast">
+          <div class="card">
+            <div class="card-image">
+              <img src="breakfast.jpg">
+              <span class="card-title">Breakfast</span>
+            </div>
+            <div class="card-content">
+							<p class = "employer"></p>
+							<p class = "time"><p>
+							<p class = "Location"></p>
+            </div>
+            <div class="card-action">
+                <a class="register" href="">Register</a>
+            </div>
+          </div>
+        </div>
+				<div class="col s4 container lunch">
+          <div class="card">
+            <div class="card-image">
+              <img src="lunch.jpg">
+              <span class="card-title">Lunch</span>
+            </div>
+            <div class="card-content">
+							<p class = "employer"></p>
+							<p class = "time"><p>
+							<p class = "Location"></p>
+            </div>
+            <div class="card-action">
+              <a class="register" href="">Register</a>
+            </div>
+          </div>
+        </div>
+				<div class="col s4 container dinner">
+          <div class="card">
+            <div class="card-image">
+              <img src="dinner.jpg">
+              <span class="card-title">Dinner</span>
+            </div>
+            <div class="card-content">
+							<p class = "employer"></p>
+							<p class = "time"><p>
+							<p class = "Location"></p>
+            </div>
+            <div class="card-action">
+              <a class="register" href="">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="row container">
+	<center>
+	  <a class="waves-effect waves-light btn btn-large">View all</a>
+  </center>
+</div>
+<div>
 </body>
 </html>
