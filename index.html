@@ -203,8 +203,8 @@
 		var getSessions = function(eventArray, start,end){
 			//takes eventArray, lower time bound for start, upper time bound for start
 			for(var i = 0; i < eventArray.length; i++){
-				//var start_time = moment(moment().format("YYYY-MM-DD" + event.start_time)); //prod
-				var start_time = moment("2016-05-09 " + eventArray[i].start_time); //test
+				var start_time = moment(moment().format("YYYY-MM-DD") + " " + eventArray[i].start_time); //prod
+				//var start_time = moment("2016-05-09 " + eventArray[i].start_time); //test
 				if(start_time >= start && start_time <= end) {
 					return eventArray[i];
 				}
