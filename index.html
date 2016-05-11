@@ -206,6 +206,8 @@
 				var start_time = moment(moment().format("YYYY-MM-DD") + " " + eventArray[i].start_time); //prod
 				//var start_time = moment("2016-05-09 " + eventArray[i].start_time); //test
 				if(start_time >= start && start_time <= end) {
+					eventArray[i].start_time = moment(eventArray[i].start_time, ["H:mm"]).format("h:mm A");
+					eventArray[i].end_time = moment(eventArray[i].end_time, ["H:mm"]).format("h:mm A");
 					return eventArray[i];
 				}
 			}
