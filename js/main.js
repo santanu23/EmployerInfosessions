@@ -22,7 +22,7 @@ $(document).ready(function() {
                   element.building.code, element.building.room, element.building.map_url, element.link, element.description);
 
       });
-      calenderStuff();
+      //calenderStuff();
 //       for (var i = 0; i < 10; i++) {
 //         insertCard("Google", "images/breakfast.jpg", ["ENG - Computer", "ENG - Electrical"], "19:30" , "21:30",
 // "TC", "2218" , "https://uwaterloo.ca/map/TC?basemap=D#map=17/43.4690/-80.5412", "http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4033");
