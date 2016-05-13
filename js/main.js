@@ -37,7 +37,7 @@ var cardTemplate = "<div class=\"infosessionCard\">"
 +                      "<div class=\"card\">"
 +                          "<div class=\"card-image\">"
                                //add first image from google images by searching for emplyoer name
-+                              "<img src=\"" + imageSrc + "\">"
++                              "<img src=\"" + imageSrc.toLowerCase().replace(" ","").replace("inc.","").trim() + "\">"
 +                              "<span class=\"card-title\">" + employerName + "</span>"
 +                          "</div>"
 +                          "<div class=\"card-content\">";
