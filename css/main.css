@@ -1,4 +1,17 @@
 .infosessionCard {
     display: inline-block;
     padding: 2em 5em;
+    width:33%;
+    vertical-align:top;
+}
+
+.chip {
+  margin: 0.25em;
+}
+
+.card .card-image img {
+    padding-bottom: 20%;
+    padding-top: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
