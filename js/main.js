@@ -12,23 +12,19 @@ $(document).ready(function() {
       $(data.data).each(function(index, event) {
         if (event.date == moment().format("YYYY-MM-DD")) infosessions.push(event);
       })
-    infosessions.sort();
-      console.log(infosessions);
+      if (infosessions.length > 0){
+        $(infosessions).each(function(index, element){
 
-      $(infosessions).each(function(index, element){
+          var programs = getProgramFromAudience(element.audience);
+          insertCard(element.employer, "images/employers/"+ element.employer +".jpg", programs, element.start_time, element.end_time,
+                    element.building.code, element.building.room, element.building.map_url, element.link, element.description);
 
-        var programs = getProgramFromAudience(element.audience);
-        insertCard(element.employer, "images/employers/"+ element.employer +".jpg", programs, element.start_time, element.end_time,
-                  element.building.code, element.building.room, element.building.map_url, element.link, element.description);
-
-      });
+        });
+      }
+      else{
+        $('.mainContainer').append("<center><h3 class=\"noInfoSessions\">No infosessions today<h3><center>");
+      }
       //calenderStuff();
-//       for (var i = 0; i < 10; i++) {
-//         insertCard("Google", "images/breakfast.jpg", ["ENG - Computer", "ENG - Electrical"], "19:30" , "21:30",
-// "TC", "2218" , "https://uwaterloo.ca/map/TC?basemap=D#map=17/43.4690/-80.5412", "http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4033");
-//       }
-
-
     });
   });
 
