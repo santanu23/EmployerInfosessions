@@ -9,16 +9,17 @@ $(document).ready(function() {
 
       var infosessions = [];
 
-      $(data.data).each(function(index, event) {
-        if (event.date == moment().format("YYYY-MM-DD")) infosessions.push(event);
+      $(data.data).each(function(index, element) {
+        if (element.date == moment().format("YYYY-MM-DD")) infosessions.push(element);
       })
       if (infosessions.length > 0){
         $(infosessions).each(function(index, element){
+          if(element.employer.indexOf("* CANCELLED *") == -1 ){
+            var programs = getProgramFromAudience(element.audience);
+            insertCard(element.employer, "images/employers/"+ element.employer.trim().replace(/ /g, '').replace(".","") +".jpg", programs, element.start_time, element.end_time,
+                      element.building.code, element.building.room, element.building.map_url, element.link, element.description);
 
-          var programs = getProgramFromAudience(element.audience);
-          insertCard(element.employer, "images/employers/"+ element.employer +".jpg", programs, element.start_time, element.end_time,
-                    element.building.code, element.building.room, element.building.map_url, element.link, element.description);
-
+          }
         });
       }
       else{
