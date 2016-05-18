@@ -1,32 +1,89 @@
-.infosessionCard {
-    display: inline-block;
-    padding: 2em 5em;
-    width:33%;
-    vertical-align:top;
-}
-
-.chip {
-  margin: 0.25em;
-}
-
-.card .card-image img {
-    padding-bottom: 20%;
-    padding-top: 20%;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-
-.uwLogo{
-  width:25%;
-  padding-top:0.25em
-}
-
-.heading{
-  padding-top:0px;
-  margin-top:0px;
-}
-
-.noInfoSessions{
-  color: grey;
-  padding-top: 2em;
-}
+    .infosessionCard {
+        display: inline-block;
+        padding: 2em 2em;
+        width: 25%;
+        vertical-align: top;
+    }
+    .maincontainer {
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+    .chip {
+        margin: 0.25em;
+    }
+    .card .card-image img {
+        padding-bottom: 20%;
+        padding-top: 20%;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .uwLogo {
+        width: 25%;
+        padding-top: 0.25em
+    }
+    .heading {
+        padding-top: 0px;
+        margin-top: 0px;
+    }
+    .noInfoSessions {
+        color: grey;
+        padding-top: 2em;
+    }
+    @media (max-width: 450px) {
+        .infosessionCard {
+            display: inline-block;
+            padding: 1em 3em;
+            width: 100%;
+        }
+        .heading {
+            padding-top: 0px;
+            margin-top: -5%;
+            font-size: 3em;
+        }
+        .uwLogo {
+            width: 100%;
+            padding: 1em
+        }
+        .card .card-content {
+            font-size: 1.1em;
+        }
+        .card .card-image img {
+            padding-bottom: 0px;
+            padding-top: 5%;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        .card .card-action {
+            font-size: 1.5em;
+            text-align: center;
+            font-weight: 400;
+        }
+        .Location {
+            font-weight: 500;
+        }
+    }
+    @media (max-width: 801px) and (min-width: 451px) {
+        .infosessionCard {
+            display: inline-block;
+            padding: 1em 3em;
+            width: 50%;
+        }
+        .heading {
+            padding-top: 0px;
+            font-size: 3em;
+        }
+        .uwLogo {
+            width: 100%;
+            padding: 2em;
+        }
+        .card .card-image img {
+            padding-bottom: 10px;
+            padding-top: 10%;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        .card .card-action {
+            font-size: 1.2em;
+            text-align: center;
+        }
+    }
