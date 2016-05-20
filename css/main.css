@@ -19,7 +19,7 @@
     }
     .uwLogo {
         width: 25%;
-        padding-top: 0.25em
+        padding-top: 2em;
     }
     .heading {
         padding-top: 0px;
@@ -28,6 +28,14 @@
     .noInfoSessions {
         color: grey;
         padding-top: 2em;
+    }
+
+    .infosessionList{
+        text-align: center;
+    }
+
+    .greyOut {
+        -webkit-filter: grayscale(100%);
     }
     @media (max-width: 450px) {
         .infosessionCard {
