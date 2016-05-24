@@ -25,7 +25,7 @@ $(document).ready(function() {
         console.log(tomorrow);
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
-                if (element.employer.indexOf("* CANCELLED *") == -1) { //don't include cancelded info sessions
+                if (element.employer.indexOf("CANCELLED") == -1) { //don't include cancelded info sessions
                     var programs = getProgramFromAudience(element.audience);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "") + ".jpg", programs, element.start_time, element.end_time,
                         element.building.code, element.building.room, element.building.map_url, element.link, element.description, moment().format("HH:mm") > element.start_time);
