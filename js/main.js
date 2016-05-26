@@ -75,7 +75,7 @@ $('.mainContainer>.infosessionList').append(cardTemplate);
 var getProgramFromAudience = function(audience) {
     var returnList = [];
     $(audience).each(function(index, element) {
-        if (!(returnList).includes(element.split("-")[0].trim())) returnList.push(element.split("-")[0].trim());
+        if ((returnList).indexOf(element.split("-")[0].trim()) == -1) returnList.push(element.split("-")[0].trim());
     });
     return returnList;
 }
