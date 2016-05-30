@@ -25,10 +25,11 @@ $(document).ready(function() {
         console.log(tomorrow);
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
-                if (element.employer.indexOf("CANCELLED") == -1) { //don't include cancelded info sessions
+                if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions
                     var programs = getProgramFromAudience(element.audience);
-                    insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "") + ".jpg", programs, element.start_time, element.end_time,
-                        element.building.code, element.building.room, element.building.map_url, element.link, element.description, moment().format("HH:mm") > element.start_time);
+                    var website = fixUrl(element.website);
+                    insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
+                        element.building.code, element.building.room, element.building.map_url, element.link, website, element.description, moment().format("HH:mm") > element.start_time);
                 }
             });
         } else {
@@ -38,7 +39,7 @@ $(document).ready(function() {
     });
 });
 
-var insertCard = function(employerName, imageSrc, programList, start, end, buildingCode, buildingRoom, mapUrl, registerUrl, description, pastEvent) {
+var insertCard = function(employerName, imageSrc, programList, start, end, buildingCode, buildingRoom, mapUrl, registerUrl, companyUrl, description, pastEvent) {
 var cardTemplate;
 if (pastEvent) {
     cardTemplate = "<div class=\"infosessionCard greyOut\">";
@@ -47,7 +48,9 @@ if (pastEvent) {
 }
 cardTemplate +=       "<div class=\"card\">"
 +                          "<div class=\"card-image\">"
++                           "<a href=\"" + companyUrl + "\">"
 +                              "<img class=\"logo\" src=\"" + imageSrc + "\">"
++                           "</a>"
 +                          "</div>"
 +                          "<div class=\"card-content\">"
 +                              "<p><strong>" + employerName + "</strong></p>"
@@ -78,4 +81,9 @@ var getProgramFromAudience = function(audience) {
         if ((returnList).indexOf(element.split("-")[0].trim()) == -1) returnList.push(element.split("-")[0].trim());
     });
     return returnList;
+}
+
+var fixUrl= function(websiteUrl) {
+    if (websiteUrl.indexOf("http://") == -1 && websiteUrl.indexOf("https://") == -1) return "http://".concat(websiteUrl);
+    return websiteUrl;
 }
