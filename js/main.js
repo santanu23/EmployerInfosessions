@@ -27,7 +27,7 @@ $(document).ready(function() {
             $(infosessions).each(function(index, element) {
                 if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions
                     var programs = getProgramFromAudience(element.audience);
-                    var website = fixUrl(element.website);
+                    var website = fixUrl(element.employer, element.website);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
                         element.building.code, element.building.room, element.building.map_url, element.link, website, element.description, moment().format("HH:mm") > element.start_time);
                 }
@@ -83,7 +83,10 @@ var getProgramFromAudience = function(audience) {
     return returnList;
 }
 
-var fixUrl= function(websiteUrl) {
-    if (websiteUrl.indexOf("http://") == -1 && websiteUrl.indexOf("https://") == -1) return "http://".concat(websiteUrl);
-    return websiteUrl;
+var fixUrl= function(name,websiteUrl) {
+    if(websiteUrl && websiteUrl.length){
+      if (websiteUrl.indexOf("http://") == -1 && websiteUrl.indexOf("https://") == -1) return "http://".concat(websiteUrl);
+      return websiteUrl;
+    }
+    return "http://".concat(name.toLowerCase()).concat(".com");
 }
