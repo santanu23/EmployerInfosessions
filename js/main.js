@@ -31,6 +31,10 @@ $(document).ready(function() {
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
                         element.building.code, element.building.room, element.building.map_url, element.link, website, element.description, moment().format("HH:mm") > element.start_time);
                 }
+                else{
+                  if (infosessions.length == 1) $('.mainContainer').append("<center><h3 class=\"noInfoSessions\">No infosessions today<h3><center>"); //quick fix restructure later
+                }
+
             });
         } else {
             $('.mainContainer').append("<center><h3 class=\"noInfoSessions\">No infosessions today<h3><center>");
