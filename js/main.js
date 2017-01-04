@@ -8,9 +8,13 @@ $(document).ready(function() {
     $.get("https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
 
         var infosessions = [];
+        var today = [];
         var tomorrow = [];
         $(data.data).each(function(index, element) {
-            if (element.date == moment().add(0, 'days').format("YYYY-MM-DD")) infosessions.push(element);
+            if (element.date == moment().add(0, 'days').format("YYYY-MM-DD")){
+            	infosessions.push(element);
+            	today.push(element.employer);
+            } 
             if (element.date == moment().add(1, 'days').format("YYYY-MM-DD")) tomorrow.push(element.employer);
         });
         infosessions.sort(function(a, b) {
@@ -22,10 +26,12 @@ $(document).ready(function() {
                 return 0;
             }
         })
-        console.log(tomorrow);
+        console.log("today:" + today);
+        console.log("tomorrow:" + tomorrow);
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
-                if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions
+                if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions\
+               	  	daylightSavings(element); //adjust for daylight savings 
                     var programs = getProgramFromAudience(element.audience);
                     var website = fixUrl(element.employer, element.website);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
@@ -42,6 +48,13 @@ $(document).ready(function() {
         //TODO: calenderStuff();
     });
 });
+
+var daylightSavings = function(infosession){
+	if (!moment(infosession.date).isDST()){
+		infosession.start_time = moment(infosession.date + " " + infosession.start_time).add(1,'h').format("HH:mm");
+		infosession.end_time = moment(infosession.date + " " + infosession.end_time).add(1,'h').format("HH:mm");
+	}
+}
 
 var insertCard = function(employerName, imageSrc, programList, start, end, buildingCode, buildingRoom, mapUrl, registerUrl, companyUrl, description, pastEvent) {
 var cardTemplate;
