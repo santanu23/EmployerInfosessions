@@ -31,7 +31,7 @@ $(document).ready(function() {
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
                 if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions\
-               	  	daylightSavings(element); //adjust for daylight savings 
+               	  	//daylightSavings(element); //adjust for daylight savings 
                     var programs = getProgramFromAudience(element.audience);
                     var website = fixUrl(element.employer, element.website);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
