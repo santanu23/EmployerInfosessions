@@ -66,7 +66,7 @@ if (pastEvent) {
 cardTemplate +=       "<div class=\"card\">"
 +                          "<div class=\"card-image\">"
 +                           "<a href=\"" + companyUrl + "\">"
-+                              "<img class=\"logo\" src=\"" + imageSrc + "\">"
++                              "<img class=\"logo\" src=\"" + imageSrc + "\" onerror=\"this.onerror=null;this.src='images/lunch.jpg';\">"
 +                           "</a>"
 +                          "</div>"
 +                          "<div class=\"card-content\">"
