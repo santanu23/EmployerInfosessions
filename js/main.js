@@ -35,7 +35,7 @@ $(document).ready(function() {
                     var programs = getProgramFromAudience(element.audience);
                     var website = fixUrl(element.employer, element.website);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
-                        element.building.code, element.building.room, element.building.map_url, element.link, website, element.description, moment().format("HH:mm") > element.end_time);
+                        element.building.code, element.building.room, element.building.map_url, generateRegisterURL(element.link), website, element.description, moment().format("HH:mm") > element.end_time);
                 }
                 else{
                   if (infosessions.length == 1) $('.mainContainer').append("<center><h3 class=\"noInfoSessions\">No infosessions today<h3><center>"); //quick fix restructure later
@@ -72,14 +72,14 @@ cardTemplate +=       "<div class=\"card\">"
 +                          "<div class=\"card-content\">"
 +                              "<p><strong>" + employerName + "</strong></p>"
 +                              "<p class = \"time\">" + moment(start, ["H:mm"]).format("h:mm A") + " - " + moment(end, ["H:mm"]).format("h:mm A") + "<p>"
-+                              "<p class = \"Location\"><a href=\""+ mapUrl + "\"><i class=\"fa fa-map-marker \" aria-hidden=\"true\"></i>  " + buildingCode + " " + buildingRoom + "</a></p>";
++                              "<p class = \"Location\"><a target=\"_blank\" href=\""+ mapUrl + "\"><i class=\"fa fa-map-marker \" aria-hidden=\"true\"></i>  " + buildingCode + " " + buildingRoom + "</a></p>";
 //add chips for each program (eg. Eng-Comp, Eng-Soft, Math-CS)
  $(programList).each( function(index, element){
    cardTemplate += "<div class=\"program chip\">" + element + "</div>";
  });
 cardTemplate +=            "</div>"
 +                          "<div class=\"card-action\">"
-+                              "<a class=\"register\" href=\"" + registerUrl + "\">Register</a>"
++                              "<a class=\"register\" target=\"_blank\" href=\"" + registerUrl + "\">Register</a>"
 +                          "</div>"
 +                    "<div class=\"card-reveal\">"
 +                    "<span class=\"card-title grey-text text-darken-4\">"+ employerName +"<i class=\"material-icons right\">close</i></span>"
@@ -106,4 +106,12 @@ var fixUrl= function(name,websiteUrl) {
       return websiteUrl;
     }
     return "http://".concat(name.toLowerCase()).concat(".com");
+}
+
+var generateRegisterURL = function(linkURL){
+	var base = "https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?mode=on&id="
+	var id = linkURL.substring(linkURL.length - 4);
+	return base + id;
+	//https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=4777&mode=on
+	//http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4777
 }
