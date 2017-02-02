@@ -4,12 +4,17 @@ $(document).ready(function() {
         $('.viewAll').css("display", "none");
         $('.scheduler').css("display", "block");
     });
-
+    let additionalEvents = {};
+    $.getJSON("js/additionalEvents.json",function(data){additionalEvents = data});
     $.get("https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
-
         var infosessions = [];
         var today = [];
         var tomorrow = [];
+        if (additionalEvents.length > 0){
+            for(let i = 0; i < additionalEvents.length; i++){
+                data.data.push(additionalEvents[i]);
+            }            
+        }
         $(data.data).each(function(index, element) {
             if (element.date == moment().add(0, 'days').format("YYYY-MM-DD")){
             	infosessions.push(element);

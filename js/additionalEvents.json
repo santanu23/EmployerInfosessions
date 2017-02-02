@@ -1,0 +1,28 @@
+[
+   {
+      "id":4906,
+      "employer":"Flipp",
+      "date":"2017-02-01",
+      "day":"Wednesday",
+      "start_time":"19:30",
+      "end_time":"21:30",
+      "description":"Flipp is a Toronto-born company founded by 4 U of Waterloo graduates and engineers. Our vision is a future in which consumers and retailers are connected. We feel that weekly shopping is too much work - too mundane - and we want shopping to be fun again. We want to make sure that consumers can save time, save money, and get the right product at the right time. We're excited to bring it back to where it all started and spread the word through out the Waterloo campus! Check out our interview with Waterloo way back when we were still Wishabi, here: https://uwaterloo.ca/alumni/interview-wishabi",
+      "website":"http://corp.flipp.com/",
+      "building":{
+         "code":"TC",
+         "name":"William M. Tatham Centre for Co-operative Education & Career Action",
+         "room":"2218",
+         "latitude":43.469,
+         "longitude":-80.5412,
+         "map_url":"https://uwaterloo.ca/map/TC?basemap=D#map=17/43.4690/-80.5412"
+      },
+      "audience":[
+         "ENG - Computer",
+         "ENG - Electrical",
+         "ENG - Software",
+         "ENG - System Design",
+         "MATH - Computer Science"
+      ],
+      "link":"http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4906"
+   }
+]
