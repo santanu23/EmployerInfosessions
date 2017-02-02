@@ -126,7 +126,9 @@ var generateRegisterURL = function(linkURL){
 	//http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4777
 }
 
+
 var getImage = function(employeNames){
+    //TODO: fix double loading of image
     let queryUrl = "https://aqueous-hamlet-86090.herokuapp.com/getImage?";
     for (let i = 0; i < employeNames.length; i++){
         queryUrl += "employerList=" + employeNames[i] + "&";         
@@ -134,7 +136,7 @@ var getImage = function(employeNames){
     $.get(queryUrl, function(data) {
         for (let i = 0; i < data.length; i++){
             let imageId = "#" + data[i].employer + "_img";
-            $(imageId).attr("src", data[i].url);
+            //$(imageId).attr("src", data[i].url);
         }
     });
 }
