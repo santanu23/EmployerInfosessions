@@ -4,8 +4,11 @@ $(document).ready(function() {
         $('.viewAll').css("display", "none");
         $('.scheduler').css("display", "block");
     });
+    
     let additionalEvents = {};
+    let employerNames = [];
     $.getJSON("js/additionalEvents.json",function(data){additionalEvents = data});
+
     $.get("https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
         var infosessions = [];
         var today = [];
@@ -36,9 +39,10 @@ $(document).ready(function() {
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
                 if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions\
-               	  	//daylightSavings(element); //adjust for daylight savings 
+               	  	//daylightSavings(element); //adjust for daylight savings                     
                     var programs = getProgramFromAudience(element.audience);
                     var website = fixUrl(element.employer, element.website);
+                    employerNames.push(element.employer);
                     insertCard(element.employer, "images/employers/" + element.employer.toLowerCase().trim().replace(/ /g, '').replace(".", "").replace(":","").replace("#","") + ".jpg", programs, element.start_time, element.end_time,
                         element.building.code, element.building.room, element.building.map_url, generateRegisterURL(element.link), website, element.description, moment().format("HH:mm") > element.end_time);
                 }
@@ -47,6 +51,7 @@ $(document).ready(function() {
                 }
 
             });
+            getImage(employerNames);
         } else {
             $('.mainContainer').append("<center><h3 class=\"noInfoSessions\">No infosessions today<h3><center>");
         }
@@ -60,7 +65,7 @@ var daylightSavings = function(infosession){
 		infosession.end_time = moment(infosession.date + " " + infosession.end_time).add(1,'h').format("HH:mm");
 	}
 }
-
+//TODO: clean this up with template library
 var insertCard = function(employerName, imageSrc, programList, start, end, buildingCode, buildingRoom, mapUrl, registerUrl, companyUrl, description, pastEvent) {
 var cardTemplate;
 if (pastEvent) {
@@ -71,7 +76,7 @@ if (pastEvent) {
 cardTemplate +=       "<div class=\"card\">"
 +                          "<div class=\"card-image\">"
 +                           "<a href=\"" + companyUrl + "\">"
-+                              "<img class=\"logo\" src=\"" + imageSrc + "\" onerror=\"this.onerror=null;this.src='images/lunch.jpg';\">"
++                              "<img id =  \""+ employerName + "_img" +"\" class=\"logo\" src=\"" + imageSrc + "\" onerror=\"this.onerror=null;this.src='images/lunch.jpg';\">"
 +                           "</a>"
 +                          "</div>"
 +                          "<div class=\"card-content\">"
@@ -94,7 +99,7 @@ cardTemplate +=            "</div>"
 +                  "</div>"
 +                  "</div>";
 $('.mainContainer>.infosessionList').append(cardTemplate);
-//;
+
 }
 
 var getProgramFromAudience = function(audience) {
@@ -119,4 +124,17 @@ var generateRegisterURL = function(linkURL){
 	return base + id;
 	//https://info.uwaterloo.ca/infocecs/students/rsvp/index.php?id=4777&mode=on
 	//http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4777
+}
+
+var getImage = function(employeNames){
+    let queryUrl = "https://aqueous-hamlet-86090.herokuapp.com/getImage?";
+    for (let i = 0; i < employeNames.length; i++){
+        queryUrl += "employerList=" + employeNames[i] + "&";         
+    }
+    $.get(queryUrl, function(data) {
+        for (let i = 0; i < data.length; i++){
+            let imageId = "#" + data[i].employer + "_img";
+            $(imageId).attr("src", data[i].url);
+        }
+    });
 }
