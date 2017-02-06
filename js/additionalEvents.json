@@ -24,5 +24,27 @@
          "MATH - Computer Science"
       ],
       "link":"http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4906"
+   },
+    {
+      "id":4895,
+      "employer":"Toast",
+      "date":"2017-02-06",
+      "day":"Monday",
+      "start_time":"14:30",
+      "end_time":"16:30",
+      "description":"Toast is an all-in-one point-of-sale and restaurant management platform. As a cloud-based system built specifically for restaurants, Toast offers advanced functionality including tableside ordering, quick menu modifications, real-time enterprise reporting, online ordering, and labor management on an easy-to-use interface.",
+      "website":"http://pos.toasttab.com/",
+      "building":{
+         "code":"UC",
+         "name":"University Club",
+         "room":"Burgundy Room",
+         "latitude":43.4724,
+         "longitude":-80.5469,
+         "map_url":"https://uwaterloo.ca/map/UC?basemap=D#map=17/43.4724/-80.5469"
+      },
+      "audience":[
+         "ENG - Software"
+      ],
+      "link":"http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4906"
    }
 ]

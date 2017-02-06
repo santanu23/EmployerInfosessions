@@ -7,9 +7,8 @@ $(document).ready(function() {
     
     let additionalEvents = {};
     let employerNames = [];
-    $.getJSON("js/additionalEvents.json",function(data){additionalEvents = data});
-
-    $.get("https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
+    $.getJSON("js/additionalEvents.json",function(data){additionalEvents = data;
+             $.get("https://api.uwaterloo.ca/v2/resources/infosessions.json?key=8ba5813a8da454869db638eec2845e0e", function(data) {
         var infosessions = [];
         var today = [];
         var tomorrow = [];
@@ -20,8 +19,8 @@ $(document).ready(function() {
         }
         $(data.data).each(function(index, element) {
             if (element.date == moment().add(0, 'days').format("YYYY-MM-DD")){
-            	infosessions.push(element);
-            	today.push(element.employer);
+                infosessions.push(element);
+                today.push(element.employer);
             } 
             if (element.date == moment().add(1, 'days').format("YYYY-MM-DD")) tomorrow.push(element.employer);
         });
@@ -39,7 +38,7 @@ $(document).ready(function() {
         if (infosessions.length > 0) {
             $(infosessions).each(function(index, element) {
                 if (element.employer.indexOf("CANCELLED") == -1 && element.employer.indexOf("Closed") == -1) { //don't include cancelded info sessions\
-               	  	//daylightSavings(element); //adjust for daylight savings                     
+                    //daylightSavings(element); //adjust for daylight savings                     
                     var programs = getProgramFromAudience(element.audience);
                     var website = fixUrl(element.employer, element.website);
                     employerNames.push(element.employer);
@@ -58,6 +57,8 @@ $(document).ready(function() {
         //TODO: calenderStuff();
     });
 });
+
+    });   
 
 var daylightSavings = function(infosession){
 	if (!moment(infosession.date).isDST()){
@@ -136,7 +137,7 @@ var getImage = function(employeNames){
     $.get(queryUrl, function(data) {
         for (let i = 0; i < data.length; i++){
             let imageId = "#" + data[i].employer + "_img";
-            //$(imageId).attr("src", data[i].url);
+           // $(imageId).attr("src", data[i].url);
         }
     });
 }
