@@ -46,5 +46,27 @@
          "ENG - Software"
       ],
       "link":"http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4895"
+   },
+    {
+      "id":4950,
+      "employer":"MOAT",
+      "date":"2017-02-10",
+      "day":"Friday",
+      "start_time":"14:30",
+      "end_time":"16:30",
+      "description":"Moat is a SaaS analytics company focused on transforming brand advertising online, establishing industry-leading metrics and benchmarks for measuring advertising, content engagement and effectiveness.",
+      "website":"http://www.moat.com/",
+      "building":{
+         "code":"UC",
+         "name":"Davis Centre",
+         "room":"1301",
+         "latitude":43.4724,
+         "longitude":-80.5469,
+         "map_url":"https://uwaterloo.ca/map/DC?basemap=D#map=17/43.4725/-80.5422"
+      },
+      "audience":[
+         "ENG - Software"
+      ],
+      "link":"http://www.ceca.uwaterloo.ca/students/hiresessions_details.php?id=4950"
    }
 ]
